@@ -6,7 +6,7 @@ This *experimental* software allows you to flash firmwares acquired through [Xpe
 - Run Newflasher. Everything inside the folder will be flashed, so remember to remove files you don't want on your device beforehand. 
 - To take a trim area backup without flashing anything, run `newflasher Dump-trim-area`. It writes the same restorable `tadump/tadump_1.ta` and `tadump_2.ta` as the flashing run does and then exits.
 
-- You must never answer y when Newflasher asks whether we need the GordonGate flash driver. This build doesn't contain a usable driver installer.
+- You must never answer y when Newflasher asks whether you need the GordonGate flash driver. This build doesn't contain a usable driver installer.
 
 ### Build (native)
 
