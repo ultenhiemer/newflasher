@@ -1,0 +1,50 @@
+name: Build Newflasher for Windows
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-windows:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential \
+            gcc-mingw-w64-i686 \
+            binutils-mingw-w64-i686 \
+            autoconf \
+            automake \
+            libtool \
+            wget \
+            xxd
+
+      - name: Build newflasher.exe
+        run: |
+          make newflasher.exe
+
+      - name: Show executable information
+        run: |
+          file newflasher.exe
+          ls -lh newflasher.exe
+
+      - name: Calculate SHA-256
+        run: |
+          sha256sum newflasher.exe | tee newflasher.exe.sha256
+
+      - name: Upload Windows executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: newflasher-windows
+          path: |
+            newflasher.exe
+            newflasher.exe.sha256
+          if-no-files-found: error
