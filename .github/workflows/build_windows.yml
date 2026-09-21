@@ -29,7 +29,12 @@ jobs:
 
       - name: Build newflasher.exe
         run: |
+          mkdir -p include
+          printf '\x00' > GordonGate
+          xxd --include GordonGate > include/GordonGate.h
+          rm GordonGate
           make newflasher.exe
+                  
 
       - name: Show executable information
         run: |
